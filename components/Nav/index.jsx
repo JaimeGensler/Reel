@@ -25,7 +25,7 @@ export default function() {
             <Title />
             <Nav>
                 <Item href="request">Request a Tutor</Item>
-                <Item href="sign_in">Sign In</Item>
+                <Item href="login">Sign In</Item>
             </Nav>
         </Header>
     );
