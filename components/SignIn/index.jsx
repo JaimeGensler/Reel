@@ -5,7 +5,6 @@ import Router from 'next/router';
 import Heading from '../SectionTitle';
 import Form from './Form';
 import Error from './Error';
-import * as cookies from '../../utils/cookies';
 
 const Wrapper = styled.div`
     width: 100vw;
@@ -26,14 +25,14 @@ const Content = styled.div`
 `;
 
 export default function() {
-    const [errorStatus, setErrorStatus] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [errorStatus, setErrorStatus] = useState(null);
     const onSubmit = values => {
         setLoading(true);
         axios
             .post('/api/sessions', values)
             .then(res => {
-                cookies.set('token', res.data.token);
+                localStorage.setItem('reel:token', res.data.token);
                 Router.push('/');
             })
             .catch(err => setErrorStatus(err.response.status))
