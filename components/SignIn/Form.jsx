@@ -5,7 +5,7 @@ const Submit = styled(Button)`
     float: right;
 `;
 
-export default function SignIn({ handleSubmit }) {
+export default function SignIn({ handleSubmit, loading }) {
     return (
         <Form onFinish={handleSubmit} layout="vertical" hideRequiredMark>
             <Form.Item
@@ -15,7 +15,7 @@ export default function SignIn({ handleSubmit }) {
                     { required: true, message: 'Please enter your username' },
                 ]}
             >
-                <Input placeholder="Username" />
+                <Input placeholder="Username" disabled={loading} />
             </Form.Item>
             <Form.Item
                 name="password"
@@ -24,10 +24,10 @@ export default function SignIn({ handleSubmit }) {
                     { required: true, message: 'Please enter your password' },
                 ]}
             >
-                <Input.Password placeholder="Password" />
+                <Input.Password placeholder="Password" disabled={loading} />
             </Form.Item>
             <Form.Item style={{ marginBottom: 0 }}>
-                <Submit type="primary" htmlType="submit">
+                <Submit type="primary" htmlType="submit" loading={loading}>
                     Sign In
                 </Submit>
             </Form.Item>

@@ -27,14 +27,17 @@ const Content = styled.div`
 
 export default function() {
     const [errorStatus, setErrorStatus] = useState(null);
+    const [loading, setLoading] = useState(false);
     const onSubmit = values => {
+        setLoading(true);
         axios
             .post('/api/sessions', values)
             .then(res => {
                 cookies.set('token', res.data.token);
                 Router.push('/');
             })
-            .catch(err => setErrorStatus(err.response.status));
+            .catch(err => setErrorStatus(err.response.status))
+            .finally(() => setLoading(true));
     };
 
     return (
@@ -45,7 +48,7 @@ export default function() {
                     handleClose={e => setErrorStatus(null)}
                 />
                 <Heading text="Sign In" />
-                <Form handleSubmit={onSubmit} />
+                <Form handleSubmit={onSubmit} loading={loading} />
             </Content>
         </Wrapper>
     );
