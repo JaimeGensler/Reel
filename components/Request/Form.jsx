@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Form, Button } from 'antd';
 import styled from 'styled-components';
 import axios from 'axios';
-import Fields from './Fields/Index';
+import Fields from './Fields';
 
 const Group1 = styled.div`
     display: flex;
@@ -31,7 +31,6 @@ export default function() {
         axios
             .post('/api/requests', values)
             .then(response => console.log(response));
-        // console.log(values);
     };
 
     return (
