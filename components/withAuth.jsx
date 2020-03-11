@@ -1,17 +1,27 @@
 import Router from 'next/router';
+import ClientOnly from './ClientOnly';
 
 const withAuth = Page => {
-    return () => {
-        if (false) {
+    const Component = props => {
+        const hasUser = !!localStorage.getItem('reel:token');
+
+        if (!hasUser) {
             Router.push({
-                pathname: '/sign_in',
-                query: { from: Router.pathname },
+                pathname: '/login',
+                query: { redirected_from: Router.pathname },
             });
-            //must have return or errors are given
-            return <div />;
+            return null;
         } else {
-            return <Page />;
+            return <Page {...props} />;
         }
+    };
+
+    return props => {
+        return (
+            <ClientOnly>
+                <Component {...props} />
+            </ClientOnly>
+        );
     };
 };
 
