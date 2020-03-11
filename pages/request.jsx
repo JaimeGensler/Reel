@@ -1,10 +1,8 @@
 import Layout from '../components/Layout';
 import Request from '../components/Request';
-import Router from 'next/router';
-import * as cookies from '../utils/cookies';
-import verifyToken from '../utils/verifyToken';
+import withAuth from '../components/withAuth';
 
-export default function RequestPage() {
+function RequestPage() {
     return (
         <Layout tabTitle="Reel - Request">
             <Request />
@@ -12,17 +10,4 @@ export default function RequestPage() {
     );
 }
 
-// RequestPage.getInitialProps = async ctx => {
-//     const rawToken = cookies.get(ctx)('token');
-//     const token = verifyToken(rawToken);
-//     console.log(rawToken);
-//     console.log(token);
-//     if (!token) {
-//         // cookies.remove('token');
-//         Router.push({
-//             pathname: '/sign_in',
-//             query: { from: Router.pathname },
-//         });
-//     }
-//     return {};
-// };
+export default withAuth(RequestPage);
