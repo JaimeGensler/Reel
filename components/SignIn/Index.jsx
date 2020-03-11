@@ -37,7 +37,7 @@ export default function() {
                 Router.push('/');
             })
             .catch(err => setErrorStatus(err.response.status))
-            .finally(() => setLoading(true));
+            .finally(() => setLoading(false));
     };
 
     return (
