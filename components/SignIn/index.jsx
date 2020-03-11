@@ -47,7 +47,7 @@ export default function() {
                     errorCode={errorStatus}
                     handleClose={e => setErrorStatus(null)}
                 />
-                <Heading text="Sign In" />
+                <Heading>Sign In</Heading>
                 <Form handleSubmit={onSubmit} loading={loading} />
             </Content>
         </Wrapper>

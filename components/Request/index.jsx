@@ -17,7 +17,7 @@ export default function Index() {
     return (
         <Wrapper>
             <Content>
-                <Heading text="Request a Tutor" />
+                <Heading>Request a Tutor</Heading>
                 <Form />
             </Content>
         </Wrapper>
