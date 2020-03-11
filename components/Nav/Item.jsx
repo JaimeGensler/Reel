@@ -17,11 +17,11 @@ const A = styled.a`
     }
 `;
 
-export default function Item({ text, href, pseudo }) {
+export default function Item({ children, href, pseudo }) {
     return (
         <li>
             <Link href={href || '/'} as={pseudo || href || '/'} passHref>
-                <A>{text}</A>
+                <A>{children}</A>
             </Link>
         </li>
     );
