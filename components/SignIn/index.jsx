@@ -4,10 +4,10 @@ import axios from 'axios';
 import Router from 'next/router';
 import Heading from '../SectionTitle';
 import Form from './Form';
-import Error from './Error';
+import Info from './Info';
 
 const Wrapper = styled.div`
-    width: 100vw;
+    width: 100%;
     height: calc(100vh - 64px);
     padding-top: 4rem;
 
@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 `;
 
 const Content = styled.div`
-    width: 20rem;
+    width: 19rem;
     padding: 2rem;
     margin: 0 auto;
 
@@ -24,9 +24,9 @@ const Content = styled.div`
     border: 1px solid #8f8f8f;
 `;
 
-export default function() {
+export default function Index() {
     const [loading, setLoading] = useState(false);
-    const [errorStatus, setErrorStatus] = useState(null);
+    const [infoMessage, setInfoMessage] = useState(null);
     const onSubmit = values => {
         setLoading(true);
         axios
@@ -35,16 +35,16 @@ export default function() {
                 localStorage.setItem('reel:token', res.data.token);
                 Router.push('/');
             })
-            .catch(err => setErrorStatus(err.response.status))
+            .catch(err => setInfoMessage(err.response.status))
             .finally(() => setLoading(false));
     };
 
     return (
         <Wrapper>
             <Content>
-                <Error
-                    errorCode={errorStatus}
-                    handleClose={e => setErrorStatus(null)}
+                <Info
+                    code={infoMessage}
+                    handleClose={e => setInfoMessage(null)}
                 />
                 <Heading>Sign In</Heading>
                 <Form handleSubmit={onSubmit} loading={loading} />

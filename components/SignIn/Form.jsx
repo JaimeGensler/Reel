@@ -28,7 +28,7 @@ export default function SignIn({ handleSubmit, loading }) {
             </Form.Item>
             <Form.Item style={{ marginBottom: 0 }}>
                 <Submit type="primary" htmlType="submit" loading={loading}>
-                    Sign In
+                    Sign{loading ? 'ing' : ''} In{loading ? '...' : ''}
                 </Submit>
             </Form.Item>
         </Form>
