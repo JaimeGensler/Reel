@@ -1,10 +1,10 @@
 import Layout from '../components/Layout';
-import SignIn from '../components/SignIn/';
+import LogIn from '../components/LogIn/';
 
 export default function() {
     return (
         <Layout tabTitle="Reel - Sign In">
-            <SignIn />
+            <LogIn />
         </Layout>
     );
 }
