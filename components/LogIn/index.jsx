@@ -46,11 +46,8 @@ export default function Index() {
 
     return (
         <Wrapper>
+            <Info code={infoMessage} handleClose={e => setInfoMessage(null)} />
             <Content>
-                <Info
-                    code={infoMessage}
-                    handleClose={e => setInfoMessage(null)}
-                />
                 <Heading>Sign In</Heading>
                 <Form handleSubmit={onSubmit} loading={loading} />
             </Content>

@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import { Alert } from 'antd';
 
 const readCode = num => {
@@ -16,12 +17,17 @@ const readCode = num => {
     }
 };
 
+const Flash = styled(Alert)`
+    width: 19rem;
+    margin: 0 auto;
+`;
+
 export default function Info({ code, handleClose }) {
     if (!code) return null;
 
     const [type, message] = readCode(code);
     return (
-        <Alert
+        <Flash
             type={type}
             message={message}
             style={{ marginBottom: '1rem' }}
