@@ -1,7 +1,6 @@
 import Layout from '../components/Layout';
 import Request from '../components/Request';
 import withAuth from '../components/withAuth';
-import Router from 'next/router';
 import requireAuth from '../utils/requireAuth';
 
 function RequestPage() {
@@ -18,4 +17,4 @@ function RequestPage() {
 //     return { jaime: 'gensler' };
 // };
 
-export default RequestPage;
+export default withAuth(RequestPage);
