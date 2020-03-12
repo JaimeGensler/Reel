@@ -15,6 +15,9 @@ const A = styled.a`
         padding-top: 11px;
         color: rgba(255, 255, 255, 0.6);
     }
+    &:focus {
+        box-shadow: 0 0 8px 2px rgb(94, 158, 214);
+    }
 `;
 
 export default function Item({ children, href, pseudo }) {
