@@ -1,7 +1,7 @@
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useState } from 'react';
-import axios from 'axios';
 import Router from 'next/router';
+import axios from 'axios';
 import Heading from '../SectionTitle';
 import Form from './Form';
 import Info from './Info';
@@ -27,13 +27,18 @@ const Content = styled.div`
 export default function Index() {
     const [loading, setLoading] = useState(false);
     const [infoMessage, setInfoMessage] = useState(null);
+
+    useEffect(() => {
+        if (Router.query.redirected_from) setInfoMessage(1);
+    }, []);
+
     const onSubmit = values => {
         setLoading(true);
         axios
-            .post('/api/sessions', values)
+            .post('/api/login', values)
             .then(res => {
                 localStorage.setItem('reel:token', res.data.token);
-                Router.push('/');
+                Router.push(Router.query.redirected_from || '/');
             })
             .catch(err => setInfoMessage(err.response.status))
             .finally(() => setLoading(false));
