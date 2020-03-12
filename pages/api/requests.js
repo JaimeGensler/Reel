@@ -20,7 +20,7 @@ export default async (req, res) => {
             break;
         }
         default:
-            throw new Error('What the FUCK just happened?');
+            res.status(400).end();
             break;
     }
 };
