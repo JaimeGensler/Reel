@@ -19,13 +19,21 @@ const Nav = styled.nav`
     display: flex;
 `;
 
-export default function() {
+export default function Index() {
+    const hasUser =
+        typeof window === 'undefined'
+            ? false
+            : !!localStorage.getItem('reel:token');
+
     return (
         <Header>
             <Title />
             <Nav>
                 <Item href="request">Request a Tutor</Item>
-                <Item href="login">Sign In</Item>
+                {hasUser ? <Item href="account">My Account</Item> : null}
+                <Item href={`log${hasUser ? 'out' : 'in'}`}>
+                    Sign {hasUser ? 'out' : 'in'}
+                </Item>
             </Nav>
         </Header>
     );
