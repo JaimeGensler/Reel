@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import ClientOnly from '../ClientOnly';
 import Title from './Title';
 import Item from './Item';
 
@@ -30,10 +31,12 @@ export default function Index() {
             <Title />
             <Nav>
                 <Item href="request">Request a Tutor</Item>
-                {hasUser ? <Item href="account">My Account</Item> : null}
-                <Item href={`log${hasUser ? 'out' : 'in'}`}>
-                    Sign {hasUser ? 'out' : 'in'}
-                </Item>
+                <ClientOnly>
+                    {hasUser ? <Item href="account">My Account</Item> : null}
+                    <Item href={`log${hasUser ? 'out' : 'in'}`}>
+                        Sign {hasUser ? 'out' : 'in'}
+                    </Item>
+                </ClientOnly>
             </Nav>
         </Header>
     );
