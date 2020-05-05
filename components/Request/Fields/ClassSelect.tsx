@@ -2,7 +2,10 @@ import { Form, Select } from 'antd';
 const { Item } = Form;
 const { Option } = Select;
 
-export default function ClassSelect({ handleChange }) {
+type Props = {
+    handleChange: (value: string) => void;
+};
+export default function ClassSelect({ handleChange }: Props) {
     return (
         <Item
             name="requestClass"

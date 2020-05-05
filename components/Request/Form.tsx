@@ -14,21 +14,21 @@ const MiddleItem = styled.div`
 `;
 
 export default function RequestForm() {
-    const [classIsOther, setClassIsOther] = useState(false);
+    const [disableContentTutoring, setDisableContentTutoring] = useState(false);
     const [form] = Form.useForm();
 
     const handleClassChange = (value: string) => {
         if (value === 'OTHER') {
-            setClassIsOther(true);
+            setDisableContentTutoring(true);
             if (form.getFieldValue('tutorType') === 'CONTENT') {
                 form.resetFields(['tutorType']);
             }
-        } else setClassIsOther(false);
+        } else setDisableContentTutoring(false);
     };
 
     const handleSubmit = (values: any) => {
         form.resetFields();
-        setClassIsOther(false);
+        setDisableContentTutoring(false);
         axios
             .post('/api/requests', values)
             .then((response) => console.log(response));
@@ -39,9 +39,11 @@ export default function RequestForm() {
             <Group1>
                 <Fields.ClassSelect handleChange={handleClassChange} />
                 <MiddleItem>
-                    {classIsOther ? <Fields.NonClass /> : null}
+                    {disableContentTutoring ? <Fields.NonClass /> : null}
                 </MiddleItem>
-                <Fields.TypeSelect disableContent={classIsOther} />
+                <Fields.TypeSelect
+                    disableContentTutoring={disableContentTutoring}
+                />
             </Group1>
             <Fields.Description />
             <Form.Item>

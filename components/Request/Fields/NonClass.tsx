@@ -1,7 +1,7 @@
 import { Form, Input } from 'antd';
 const { Item } = Form;
 
-export default function Description() {
+export default function NonClass() {
     return (
         <Item
             name="nonClassDescription"

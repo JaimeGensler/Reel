@@ -2,7 +2,10 @@ import { Form, Select } from 'antd';
 const { Item } = Form;
 const { Option } = Select;
 
-export default function TypeSelect({ disableContent }) {
+type Props = {
+    disableContentTutoring: boolean;
+};
+export default function TypeSelect({ disableContentTutoring }: Props) {
     return (
         <Item
             name="tutorType"
@@ -16,7 +19,7 @@ export default function TypeSelect({ disableContent }) {
         >
             <Select placeholder="Select a Tutoring Type">
                 <Option value="WRITING">Writing</Option>
-                <Option value="CONTENT" disabled={disableContent}>
+                <Option value="CONTENT" disabled={disableContentTutoring}>
                     Content
                 </Option>
             </Select>
