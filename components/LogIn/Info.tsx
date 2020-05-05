@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 import { Alert } from 'antd';
 
-const readCode = num => {
-    switch (num) {
+const Flash = styled(Alert)`
+    width: 19rem;
+    margin: 0 auto 1rem auto;
+`;
+const readCode = (code: number) => {
+    switch (code) {
         case 1:
             return ['info', "You'll need to sign in to view that page."];
         case 401:
@@ -17,20 +21,18 @@ const readCode = num => {
     }
 };
 
-const Flash = styled(Alert)`
-    width: 19rem;
-    margin: 0 auto;
-`;
-
-export default function Info({ code, handleClose }) {
-    if (!code) return null;
+type Props = {
+    code: number;
+    handleClose: () => void;
+};
+export default function Info({ code, handleClose }: Props) {
+    if (code === 0) return null;
 
     const [type, message] = readCode(code);
     return (
         <Flash
-            type={type}
+            type={type as 'success' | 'info' | 'warning' | 'error'}
             message={message}
-            style={{ marginBottom: '1rem' }}
             showIcon
             closable
             onClose={handleClose}
