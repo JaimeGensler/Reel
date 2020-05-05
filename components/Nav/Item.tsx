@@ -20,7 +20,12 @@ const A = styled.a`
     }
 `;
 
-export default function Item({ children, href, pseudo }) {
+type Props = {
+    children: JSX.Element | string;
+    href: string;
+    pseudo?: string;
+};
+export default function Item({ children, href, pseudo }: Props) {
     return (
         <li>
             <Link href={href || '/'} as={pseudo || href || '/'} passHref>
