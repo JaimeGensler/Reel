@@ -1,6 +1,7 @@
+import { NextApiRequest, NextApiResponse } from 'next';
 import Request from '../../models/User';
 
-export default async (req, res) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
     switch (req.method) {
         case 'GET': {
             const requests = await Request.find();

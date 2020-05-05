@@ -1,7 +1,8 @@
-import User from '../../models/User';
+import { NextApiRequest, NextApiResponse } from 'next';
 import jwt from 'jsonwebtoken';
+import User from '../../models/User';
 
-export default async (req, res) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
         const { username, password } = req.body;
 
@@ -11,9 +12,13 @@ export default async (req, res) => {
         });
 
         if (user) {
-            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-                expiresIn: '10m',
-            });
+            const token = jwt.sign(
+                { id: user._id },
+                process.env.JWT_SECRET as string,
+                {
+                    expiresIn: '10m',
+                },
+            );
 
             res.status(200).json({ token });
         } else {
