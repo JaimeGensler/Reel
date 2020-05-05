@@ -25,6 +25,7 @@ export default function Index() {
         typeof window === 'undefined'
             ? false
             : !!localStorage.getItem('reel:token');
+    const accountText = `Sign ${hasUser ? 'out' : 'in'}`;
 
     return (
         <Header>
@@ -33,8 +34,8 @@ export default function Index() {
                 <Item href="request">Request a Tutor</Item>
                 <ClientOnly>
                     {hasUser ? <Item href="account">My Account</Item> : null}
-                    <Item href={`log${hasUser ? 'out' : 'in'}`}>
-                        Sign {hasUser ? 'out' : 'in'}
+                    <Item href={hasUser ? 'logout' : 'login'}>
+                        {accountText}
                     </Item>
                 </ClientOnly>
             </Nav>
