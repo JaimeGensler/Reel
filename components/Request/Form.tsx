@@ -13,24 +13,25 @@ const MiddleItem = styled.div`
     margin: 0 8rem 0 2rem;
 `;
 
-export default function() {
+export default function RequestForm() {
     const [classIsOther, setClassIsOther] = useState(false);
     const [form] = Form.useForm();
 
-    const handleClassChange = value => {
+    const handleClassChange = (value: string) => {
         if (value === 'OTHER') {
             setClassIsOther(true);
-            if (form.getFieldValue('tutorType') === 'CONTENT')
+            if (form.getFieldValue('tutorType') === 'CONTENT') {
                 form.resetFields(['tutorType']);
+            }
         } else setClassIsOther(false);
     };
 
-    const handleSubmit = values => {
+    const handleSubmit = (values: any) => {
         form.resetFields();
         setClassIsOther(false);
         axios
             .post('/api/requests', values)
-            .then(response => console.log(response));
+            .then((response) => console.log(response));
     };
 
     return (
@@ -45,7 +46,7 @@ export default function() {
             <Fields.Description />
             <Form.Item>
                 <Button type="primary" htmlType="submit">
-                    Request
+                    Submit Request
                 </Button>
             </Form.Item>
         </Form>

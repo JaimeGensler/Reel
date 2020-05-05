@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Heading from '../SectionTitle.jsx';
-import Form from './Form';
+import RequestForm from './Form';
 
 const Wrapper = styled.div`
     height: calc(100vh - 64px);
@@ -18,7 +18,7 @@ export default function Index() {
         <Wrapper>
             <Content>
                 <Heading>Request a Tutor</Heading>
-                <Form />
+                <RequestForm />
             </Content>
         </Wrapper>
     );
