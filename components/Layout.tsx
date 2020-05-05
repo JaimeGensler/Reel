@@ -6,7 +6,11 @@ const Main = styled.main`
     padding-top: 64px;
 `;
 
-export default function Layout({ children, tabTitle }) {
+type Props = {
+    children: JSX.Element;
+    tabTitle: string;
+};
+export default function Layout({ children, tabTitle }: Props) {
     return (
         <>
             <Head>

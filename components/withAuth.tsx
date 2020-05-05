@@ -1,8 +1,8 @@
 import Router from 'next/router';
 import ClientOnly from './ClientOnly';
 
-const withAuth = Page => {
-    const Component = props => {
+const withAuth = (Page: any) => {
+    const Component = (props: any) => {
         const hasUser = !!localStorage.getItem('reel:token');
 
         if (!hasUser) {
@@ -16,7 +16,7 @@ const withAuth = Page => {
         }
     };
 
-    return props => {
+    return (props: any) => {
         return (
             <ClientOnly>
                 <Component {...props} />

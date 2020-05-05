@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
-export default function ClientOnly({ children }) {
+type Props = { children: any };
+export default function ClientOnly({ children }: Props) {
     const [shouldRender, setShouldRender] = useState(false);
-
     useEffect(() => setShouldRender(true), []);
 
     if (!shouldRender) return null;
