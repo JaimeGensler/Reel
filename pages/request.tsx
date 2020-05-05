@@ -1,7 +1,6 @@
 import Layout from '../components/Layout';
 import Request from '../components/Request';
 import withAuth from '../components/withAuth';
-import requireAuth from '../utils/requireAuth';
 
 function RequestPage() {
     return (
