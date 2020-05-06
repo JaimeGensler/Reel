@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Heading from '../SectionTitle.jsx';
+import Heading from '../SectionTitle';
 import RequestForm from './Form';
 
 const Wrapper = styled.div`
