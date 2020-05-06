@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import Request from '../../models/User';
+import Request from '../../models/Request';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     switch (req.method) {
