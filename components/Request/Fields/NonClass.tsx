@@ -1,8 +1,15 @@
+import styled from 'styled-components';
 import { Form, Input } from 'antd';
 const { Item } = Form;
 
-export default function NonClass() {
-    return (
+const Container = styled.div`
+    flex: 1;
+    margin: 0 8rem 0 2rem;
+`;
+
+type Props = { shouldRender: boolean };
+export default function NonClass({ shouldRender }: Props) {
+    const contents = !shouldRender ? null : (
         <Item
             name="nonClassDescription"
             label="What do you need a tutor for?"
@@ -17,4 +24,5 @@ export default function NonClass() {
             <Input placeholder="(e.g. School Newspaper Submission, Scholarship Essay, etc.)" />
         </Item>
     );
+    return <Container>{contents}</Container>;
 }
