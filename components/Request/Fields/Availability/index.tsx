@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import Day from './Day';
 
 const Week = styled.div`
     display: grid;
@@ -8,7 +7,7 @@ const Week = styled.div`
     width: 100%;
 `;
 
-export default function Availability(props) {
+export default function Availability(props: any) {
     return (
         <Week>
             <h3>Sunday</h3>
