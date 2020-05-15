@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import login from '../../db/createSession';
+import createSession from '../../db/createSession';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
@@ -8,7 +8,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             req.body.password,
         ];
 
-        const { ok, data } = await login(credentials);
+        const { ok, data } = await createSession(credentials);
 
         if (ok) {
             res.writeHead(200, {
