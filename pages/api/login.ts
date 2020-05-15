@@ -12,7 +12,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
         if (ok) {
             res.writeHead(200, {
-                'Set-Cookie': `@reel/sessionID=${session.data}; HttpOnly; path=/`,
+                'Set-Cookie': `@reel/sessionID=${data}; HttpOnly; path=/`,
             }).end();
         } else if (data === 'NotFound') {
             res.status(401).json({
