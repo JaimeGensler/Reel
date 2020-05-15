@@ -55,8 +55,6 @@ export default function Index() {
         axios
             .post('/api/login', values)
             .then((res) => {
-                localStorage.setItem('reel:token', res.data.token);
-                //this won't work the way I want it to
                 Router.push((Router.query.redirected_from as string) || '/');
             })
             .catch((err) => setInfoMessage(err.response.status))
