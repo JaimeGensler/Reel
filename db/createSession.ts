@@ -1,8 +1,12 @@
 import { q, client } from './fauna';
 
-//Credentials are passed here from login API route in format [username, password]
+const success = (data: string) => ({ ok: true, data });
+const failure = (data: string) => ({ ok: false, data });
+
+//Credentials are passed here from login API route in format [username, hashedPassword]
 type Credentials = [string, string];
-const login = (credentials: Credentials) => {
+
+export default async function createSession(credentials: Credentials) {
     return client
         .query(
             q.Select(
@@ -17,11 +21,6 @@ const login = (credentials: Credentials) => {
                 }),
             ),
         )
-        .then((response: any) => {
-            console.log('got a good response');
-            return response.value.id;
-        })
-        .catch((err) => err.name);
-};
-
-export default login;
+        .then((response: any) => success(response.value.id as string))
+        .catch((err) => failure(err.name as string));
+}
