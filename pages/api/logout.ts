@@ -1,12 +1,16 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import destroySession from '../../db/destroySession';
 import hasUser from '../../lib/hasUser';
-// import destroySession from '../../db/destroySession';
+
+const getSessionID = (cookie: string) => {
+    return (cookie.match(/@reel\/sessionID=([\d]+);?/i) as [any, string])[1];
+};
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-    const shouldClearCookie = hasUser(req.headers.cookie);
-    console.log(shouldClearCookie);
-    console.log(req.headers.cookie);
-    if (shouldClearCookie) {
+    const sessionID = getSessionID(req.headers.cookie as string);
+    console.log(sessionID);
+    if (hasUser(req.headers.cookie)) {
+        destroySession(sessionID);
         res.writeHead(200, {
             'Set-Cookie': `@reel/sessionID=; HttpOnly; Path=/; Max-Age=0`,
         }).end();

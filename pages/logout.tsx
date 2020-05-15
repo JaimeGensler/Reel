@@ -8,8 +8,6 @@ export default function LogOutPage() {
             .post('/api/logout')
             .catch(() => null)
             .finally(() => Router.push('/'));
-        //     localStorage.removeItem('reel:token');
-        //     Router.push('/');
     }, []);
     return null;
 }
