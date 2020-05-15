@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import login from '../../db/login';
+import login from '../../db/createSession';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
@@ -8,16 +8,20 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             req.body.password,
         ];
 
-        const session = await login(credentials);
+        const { ok, data } = await login(credentials);
 
-        if (session === 'NotFound') {
+        if (ok) {
+            res.writeHead(200, {
+                'Set-Cookie': `@reel/sessionID=${session.data}; HttpOnly; path=/`,
+            }).end();
+        } else if (data === 'NotFound') {
             res.status(401).json({
-                message: 'No matching username & password found',
+                message: 'No matching username & password found.',
             });
         } else {
-            res.writeHead(200, {
-                'Set-Cookie': `@reel/sessionID=${session}; HttpOnly; path=/`,
-            }).end();
+            res.status(500).json({
+                message: 'Unknown error occured.',
+            });
         }
     } else {
         res.status(400).json({ message: 'Must use POST for this route' });
