@@ -20,25 +20,18 @@ const Nav = styled.nav`
     display: flex;
 `;
 
-export default function Index() {
-    const hasUser =
-        typeof window === 'undefined'
-            ? false
-            : !!localStorage.getItem('reel:token');
-    const accountLink = hasUser ? <Item href="account">My Account</Item> : null;
-    const hasUserText = `Sign ${hasUser ? 'out' : 'in'}`;
+type Props = { hasUser: boolean };
+export default function Index({ hasUser }: Props) {
+    const myAccount = hasUser ? <Item href="account">My Account</Item> : null;
+    const signInOrOut = hasUser ? 'Sign out' : 'Sign in';
 
     return (
         <Header>
             <Title />
             <Nav>
                 <Item href="request">Request a Tutor</Item>
-                <ClientOnly>
-                    {accountLink}
-                    <Item href={hasUser ? 'logout' : 'login'}>
-                        {hasUserText}
-                    </Item>
-                </ClientOnly>
+                {myAccount}
+                <Item href={hasUser ? 'logout' : 'login'}>{signInOrOut}</Item>
             </Nav>
         </Header>
     );

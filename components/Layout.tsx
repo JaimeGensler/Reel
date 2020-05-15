@@ -9,8 +9,9 @@ const Main = styled.main`
 type Props = {
     children: JSX.Element;
     tabTitle: string;
+    hasUser: boolean;
 };
-export default function Layout({ children, tabTitle }: Props) {
+export default function Layout({ children, tabTitle, hasUser }: Props) {
     return (
         <>
             <Head>
@@ -21,7 +22,7 @@ export default function Layout({ children, tabTitle }: Props) {
                 />
             </Head>
 
-            <Nav />
+            <Nav hasUser={hasUser} />
             <Main>{children}</Main>
         </>
     );
