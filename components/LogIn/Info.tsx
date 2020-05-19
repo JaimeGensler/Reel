@@ -9,6 +9,8 @@ const readCode = (code: number) => {
     switch (code) {
         case 1:
             return ['info', "You'll need to sign in to view that page."];
+        case 200:
+            return ['success', 'Success! Redirecting...'];
         case 401:
             return ['error', 'Incorrect username or password.'];
         case 500:

@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
-import getUserCourses from '../db/getUserCourses';
+import getUserCourses from '../db/requests/getUserCourses';
 import checkHasUser from './checkHasUser';
-import getSessionID from './getSessionID';
+import getSessionID from '../db/utils/getSessionID';
 
 export default function fetchRequestProps(): GetServerSideProps {
     return async (ctx) => {

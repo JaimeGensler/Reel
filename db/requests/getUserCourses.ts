@@ -1,4 +1,4 @@
-import { q, client } from './fauna';
+import { q, client } from '../fauna';
 
 const success = (data: any) => ({ ok: true, data });
 const failure = (data: any) => ({ ok: false, data });

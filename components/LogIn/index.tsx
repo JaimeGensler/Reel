@@ -55,6 +55,7 @@ export default function Index() {
         axios
             .post('/api/login', values)
             .then((res) => {
+                setInfoMessage(res.status);
                 Router.push((Router.query.redirected_from as string) || '/');
             })
             .catch((err) => setInfoMessage(err.response.status))

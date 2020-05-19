@@ -1,14 +1,28 @@
-import { q, client } from './fauna';
+import axios from 'axios';
+import formatGQL from '../utils/formatGQL';
+import { queryURL, faunaHeaders } from '../fauna';
+import { success, failure } from '../utils/successFailure';
+import getSessionID from '../utils/getSessionID';
 
-export default async function destroySession(sessionNum: string) {
-    return client
-        .query(q.Delete(q.Ref(q.Collection('Sessions'), sessionNum)))
-        .then((response: any) => {
-            console.log(response);
-            return true;
-        })
-        .catch((err) => {
-            console.log(err);
-            return true;
-        });
+const destroySessionMutation = formatGQL`
+    mutation DestroyASession($sessionID: ID!) {
+        deleteSession(id: $sessionID) {
+            _id
+        }
+    }
+`;
+
+const getParams = (sessionID: any) => ({
+    query: destroySessionMutation,
+    variables: {
+        sessionID,
+    },
+});
+
+export default async function destroySession(cookie: string) {
+    const sessionID = getSessionID(cookie);
+    return axios
+        .post(queryURL, getParams(sessionID), faunaHeaders)
+        .then((res) => success(res.data))
+        .catch((err) => failure(err));
 }

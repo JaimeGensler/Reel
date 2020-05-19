@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { queryURL, faunaHeaders } from '../fauna';
 import formatGQL from '../utils/formatGQL';
+import { queryURL, faunaHeaders } from '../fauna';
 import { success, failure } from '../utils/successFailure';
 
 const createSessionMutation = formatGQL`
