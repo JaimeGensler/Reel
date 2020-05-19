@@ -1,9 +1,10 @@
 import axios from 'axios';
-import formatGQL from '../utils/formatGQL';
 import { queryURL, faunaHeaders } from '../fauna';
+import formatGQL from '../utils/formatGQL';
+import getParams from '../utils/getParams';
 import { success, failure } from '../utils/successFailure';
 
-const passwordQuery = formatGQL`
+const getStudentPasswordQuery = formatGQL`
     query getStudent($username: String!) {
         getStudentByUsername(username: $username) {
             _id
@@ -12,16 +13,13 @@ const passwordQuery = formatGQL`
     }
 `;
 
-const getParams = (username: string) => ({
-    query: passwordQuery,
-    variables: {
-        username,
-    },
-});
-
 export default async function getPasswordHash(username: string) {
     return axios
-        .post(queryURL, getParams(username), faunaHeaders)
+        .post(
+            queryURL,
+            getParams(getStudentPasswordQuery, { username }),
+            faunaHeaders,
+        )
         .then((res) =>
             res.data.data.getStudentByUsername === null
                 ? failure('Username not found.')

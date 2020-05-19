@@ -1,6 +1,7 @@
 import axios from 'axios';
-import formatGQL from '../utils/formatGQL';
 import { queryURL, faunaHeaders } from '../fauna';
+import formatGQL from '../utils/formatGQL';
+import getParams from '../utils/getParams';
 import { success, failure } from '../utils/successFailure';
 
 const createSessionMutation = formatGQL`
@@ -11,17 +12,14 @@ const createSessionMutation = formatGQL`
     }
 `;
 
-const getParams = (studentID: any) => ({
-    query: createSessionMutation,
-    variables: {
-        studentID,
-    },
-});
-
 export default async function createSession(userID: string) {
     const studentInput = { user: { connect: userID } };
     return axios
-        .post(queryURL, getParams(studentInput), faunaHeaders)
+        .post(
+            queryURL,
+            getParams(createSessionMutation, studentInput),
+            faunaHeaders,
+        )
         .then((res) => success(res.data.data.createSession._id))
         .catch((err) => failure(err.data.errors));
 }
