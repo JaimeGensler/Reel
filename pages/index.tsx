@@ -1,5 +1,6 @@
 import Layout from '../components/Layout';
 import fetchProps from '../lib/fetchProps';
+import axios from 'axios';
 
 type Props = {
     hasUser: boolean;

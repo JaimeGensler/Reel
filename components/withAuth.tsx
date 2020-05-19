@@ -1,9 +1,8 @@
 import Router from 'next/router';
-import ClientOnly from './ClientOnly';
 
 const withAuth = (Page: any) => {
     const Component = (props: any) => {
-        const hasUser = !!localStorage.getItem('reel:token');
+        const { hasUser } = props;
 
         if (!hasUser) {
             Router.push({
@@ -16,13 +15,7 @@ const withAuth = (Page: any) => {
         }
     };
 
-    return (props: any) => {
-        return (
-            <ClientOnly>
-                <Component {...props} />
-            </ClientOnly>
-        );
-    };
+    return (props: any) => <Component {...props} />;
 };
 
 export default withAuth;

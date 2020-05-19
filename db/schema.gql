@@ -13,48 +13,41 @@ enum RequestStatus {
 
 ### Collections ###
 type Session @collection(name: "Sessions") {
-    id: ID!
-    createdAt: Time!
-
-    user: Student!
+    user: Student
 }
+
 type Student @collection(name: "Students") {
-    id: ID!
-    username: String!
-    passwordHash: String!
+    username: String
+    passwordHash: String
 
-    name: String!
-    classStanding: Int!
-    majors: [String!]!
-    minors: [String!]!
-    tutorTypes: [TutorTypes!]!
-    courses: [Course!]!
+    name: String
+    classStanding: Int
+    majors: [String]
+    minors: [String]
+    tutorTypes: [TutorTypes]
+    courses: [Course] @relation(name: "student_courses")
 
-    requests: [Request!]! @relation(name: "student_requests")
-    assignments: [Request!]! @relation(name: "student_assignments")
+    requests: [Request] @relation(name: "student_requests")
+    assignments: [Request] @relation(name: "student_assignments")
 }
 
 type Course @collection(name: "Courses") {
-    id: ID!
-
-    title: String!
-    subject: String!
-    level: Int!
-    professor: String!
-    students: [Student!]!
+    title: String
+    subject: String
+    level: Int
+    professor: String
+    students: [Student] @relation(name: "student_courses")
 }
 
 type Request @collection(name: "Requests") {
-    id: ID!
+    tutor: Student @relation(name: "student_assignments")
+    tutee: Student @relation(name: "student_requests")
+    status: RequestStatus
 
-    tutor: Student! @relation(name: "student_assignments")
-    tutee: Student! @relation(name: "student_requests")
-    status: RequestStatus!
-
-    course: Course!
+    course: Course
     descripIfNotCourse: String
-    tutorType: String!
-    description: String!
+    tutorType: String
+    description: String
 }
 ###############
 
@@ -64,77 +57,6 @@ type Query {
     allCourses: [Course]
     allRequests: [Request]
 
-    student(id: ID!): Student
-    login(username: String!, passwordHash: String!): Student
+    getStudentByUsername(username: String): Student
 }
 ###############
-
-### Authentication ###
-# input LoginUserInput {
-#     username: String!
-#     password: String!
-# }
-# type Mutation {
-#     loginUser(input: LoginUserInput): String!
-# }
-###############
-
-#
-#
-#
-# Old stuff
-# mutation CreateNewSession() {
-#     createSession() {
-
-#     }
-# }
-
-# mutation CreateReviewForEpisode($ep: Episode!, $review: ReviewInput!) {
-#   createReview(episode: $ep, review: $review) {
-#     stars
-#     commentary
-#   }
-# }
-
-# query requestsMadeByStudent($studentID: ID!) {
-#     student(id: $studentID) {
-#         requests {
-#             description
-#             tutorType
-#             status
-#             tutor {
-#                 #If possible, this should only be included if the status is assigned
-#                 name
-#                 #These fields may not be necessary
-#                 classStanding
-#                 majors
-#             }
-#             course {
-#                 title
-#                 subject
-#                 level
-#                 professor
-#             }
-#         }
-#     }
-# }
-
-# query requestsAssignedToStudent($studentID: ID!) {
-#     student(_id: $studentID) {
-#         assignments {
-#             description
-#             tutorType
-#             status
-#             tutee {
-#                 name
-#                 classStanding
-#             }
-#             course {
-#                 title
-#                 subject
-#                 level
-#                 professor
-#             }
-#         }
-#     }
-# }

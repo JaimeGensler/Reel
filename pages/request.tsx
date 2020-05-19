@@ -1,19 +1,20 @@
 import Layout from '../components/Layout';
 import Request from '../components/Request';
 import withAuth from '../components/withAuth';
+import fetchRequestProps from '../lib/fetchRequestProps';
 
-function RequestPage() {
+type Props = {
+    hasUser: boolean;
+    courses: any[];
+};
+function RequestPage({ hasUser, courses }: Props) {
     return (
-        <Layout tabTitle="Reel - Request">
+        <Layout tabTitle="Reel - Request" hasUser={hasUser}>
             <Request />
         </Layout>
     );
 }
 
-// RequestPage.getInitialProps = async ctx => {
-//     const user = requireAuth(ctx);
-
-//     return { jaime: 'gensler' };
-// };
+export const getServerSideProps = fetchRequestProps();
 
 export default withAuth(RequestPage);

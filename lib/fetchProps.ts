@@ -1,11 +1,11 @@
 import { GetServerSideProps } from 'next';
-import hasUser from './hasUser';
+import checkHasUser from './checkHasUser';
 
 export default function fetchProps(): GetServerSideProps {
     return async (ctx) => {
         return {
             props: {
-                hasUser: hasUser(ctx.req.headers.cookie),
+                hasUser: checkHasUser(ctx.req.headers.cookie),
             },
         };
     };

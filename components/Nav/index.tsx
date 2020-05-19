@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import ClientOnly from '../ClientOnly';
 import Title from './Title';
 import Item from './Item';
 
