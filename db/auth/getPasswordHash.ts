@@ -25,5 +25,5 @@ export default async function getPasswordHash(username: string) {
                 ? failure('Username not found.')
                 : success(res.data.data.getStudentByUsername),
         )
-        .catch((err) => failure(err.data.errors));
+        .catch((err) => failure(err));
 }

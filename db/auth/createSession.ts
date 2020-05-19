@@ -5,8 +5,8 @@ import getParams from '../utils/getParams';
 import { success, failure } from '../utils/successFailure';
 
 const createSessionMutation = formatGQL`
-    mutation CreateASession($studentID: SessionInput!) {
-        createSession(data: $studentID) {
+    mutation CreateASession($student: SessionInput!) {
+        createSession(data: $student) {
             _id
         }
     }
@@ -17,9 +17,9 @@ export default async function createSession(userID: string) {
     return axios
         .post(
             queryURL,
-            getParams(createSessionMutation, studentInput),
+            getParams(createSessionMutation, { student: studentInput }),
             faunaHeaders,
         )
         .then((res) => success(res.data.data.createSession._id))
-        .catch((err) => failure(err.data.errors));
+        .catch((err) => failure(err));
 }
