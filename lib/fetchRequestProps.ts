@@ -1,19 +1,29 @@
 import { GetServerSideProps } from 'next';
-import getUserCourses from '../db/requests/getUserCourses';
+import getStudentCourses from '../db/requests/getStudentCourses';
 import checkHasUser from './checkHasUser';
-import getSessionID from '../db/utils/getSessionID';
 
 export default function fetchRequestProps(): GetServerSideProps {
     return async (ctx) => {
         const hasUser = checkHasUser(ctx.req.headers.cookie);
-        const sessionID = getSessionID(ctx.req.headers.cookie);
-        const courses = await getUserCourses(sessionID);
-        console.log(courses.data);
-        return {
-            props: {
-                hasUser,
-                courses: courses.data,
-            },
-        };
+        if (hasUser) {
+            const userInfo = await getStudentCourses(
+                ctx.req.headers.cookie as string,
+            );
+            const userID = userInfo.data._id;
+            const courses = userInfo.data.courses.data;
+            return {
+                props: {
+                    hasUser,
+                    userID,
+                    courses,
+                },
+            };
+        } else {
+            return {
+                props: {
+                    hasUser,
+                },
+            };
+        }
     };
 }

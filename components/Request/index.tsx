@@ -9,7 +9,7 @@ const Wrapper = styled.div`
     padding-top: 2rem;
 `;
 const Content = styled.div`
-    width: 80%;
+    width: 60%;
     margin: 0 auto;
 `;
 
