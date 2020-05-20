@@ -7,8 +7,8 @@ const Container = styled.div`
     margin: 0 8rem 0 2rem;
 `;
 
-type Props = { shouldRender: boolean };
-export default function NonClass({ shouldRender }: Props) {
+type Props = { shouldRender: boolean; loading: boolean };
+export default function NonClass({ shouldRender, loading }: Props) {
     const contents = !shouldRender ? null : (
         <Item
             name="nonClassDescription"
@@ -21,7 +21,10 @@ export default function NonClass({ shouldRender }: Props) {
                 },
             ]}
         >
-            <Input placeholder="(e.g. School Newspaper Submission, Scholarship Essay, etc.)" />
+            <Input
+                disabled={loading}
+                placeholder="(e.g. School Newspaper Submission, Scholarship Essay, etc.)"
+            />
         </Item>
     );
     return <Container>{contents}</Container>;

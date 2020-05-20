@@ -13,6 +13,8 @@ const SelectGroup = styled.div`
 
 export default function RequestForm() {
     const [disableContentTutoring, setDisableContentTutoring] = useState(false);
+    const [loading, setLoading] = useState(false);
+
     const [form] = Form.useForm();
 
     const handleClassChange = (value: string) => {
@@ -25,23 +27,38 @@ export default function RequestForm() {
     };
 
     const handleSubmit = (values: any) => {
-        form.resetFields();
-        setDisableContentTutoring(false);
+        setLoading(true);
         axios
             .post('/api/requests', values)
-            .then((response) => console.log(response));
+            .then((response) => console.log(response))
+            .catch((err) => err)
+            .finally(() => setLoading(false));
     };
 
     return (
         <Form form={form} onFinish={handleSubmit} layout="vertical">
             <SelectGroup>
-                <ClassSelect handleChange={handleClassChange} />
-                <NonClass shouldRender={disableContentTutoring} />
-                <TypeSelect disableContentTutoring={disableContentTutoring} />
+                <ClassSelect
+                    handleChange={handleClassChange}
+                    loading={loading}
+                />
+                <NonClass
+                    shouldRender={disableContentTutoring}
+                    loading={loading}
+                />
+                <TypeSelect
+                    disableContentTutoring={disableContentTutoring}
+                    loading={loading}
+                />
             </SelectGroup>
-            <Description />
+            <Description loading={loading} />
             <Item>
-                <Button type="primary" htmlType="submit">
+                <Button
+                    type="primary"
+                    htmlType="submit"
+                    disabled={loading}
+                    loading={loading}
+                >
                     Submit Request
                 </Button>
             </Item>

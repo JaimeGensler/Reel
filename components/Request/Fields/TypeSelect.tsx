@@ -4,8 +4,9 @@ const { Option } = Select;
 
 type Props = {
     disableContentTutoring: boolean;
+    loading: boolean;
 };
-export default function TypeSelect({ disableContentTutoring }: Props) {
+export default function TypeSelect({ disableContentTutoring, loading }: Props) {
     return (
         <Item
             name="tutorType"
@@ -17,7 +18,7 @@ export default function TypeSelect({ disableContentTutoring }: Props) {
                 },
             ]}
         >
-            <Select placeholder="Select a Tutoring Type">
+            <Select placeholder="Select a Tutoring Type" disabled={loading}>
                 <Option value="WRITING">Writing</Option>
                 <Option value="CONTENT" disabled={disableContentTutoring}>
                     Content

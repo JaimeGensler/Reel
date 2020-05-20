@@ -2,7 +2,8 @@ import { Form, Input } from 'antd';
 const { Item } = Form;
 const { TextArea } = Input;
 
-export default function Description() {
+type Props = { loading: boolean };
+export default function Description({ loading }: Props) {
     return (
         <Item
             name="description"
@@ -15,7 +16,11 @@ export default function Description() {
                 },
             ]}
         >
-            <TextArea rows={5} placeholder="What do you need help with?" />
+            <TextArea
+                disabled={loading}
+                rows={5}
+                placeholder="What do you need help with?"
+            />
         </Item>
     );
 }

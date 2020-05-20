@@ -6,8 +6,9 @@ const { Option } = Select;
 
 type Props = {
     handleChange: (value: string) => void;
+    loading: boolean;
 };
-export default function ClassSelect({ handleChange }: Props) {
+export default function ClassSelect({ handleChange, loading }: Props) {
     const courses = useContext(coursesContext);
     const options = courses.map((course) => {
         return (
@@ -22,7 +23,11 @@ export default function ClassSelect({ handleChange }: Props) {
             label="Class"
             rules={[{ required: true, message: 'Please select a class!' }]}
         >
-            <Select placeholder="Select a Class" onChange={handleChange}>
+            <Select
+                placeholder="Select a Class"
+                onChange={handleChange}
+                disabled={loading}
+            >
                 {options}
                 <Option value="OTHER">Other (extracurricular)</Option>
             </Select>
